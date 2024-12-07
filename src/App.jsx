@@ -10,6 +10,7 @@ function App() {
   const [imgSrc, setImgSRC] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [posts, setPosts] = useState([]);
+  const [id, setId] = useState(Date.now())
 
   const getPosts = async () => {
     const { data: posts } = await axios.get(urlBaseServer + "/posts");
@@ -17,7 +18,7 @@ function App() {
   };
 
   const agregarPost = async () => {
-    const post = { titulo, img: imgSrc, descripcion };
+    const post = { titulo, img: imgSrc, descripcion, id };
     await axios.post(urlBaseServer + "/posts", post);
     getPosts();
   };
@@ -48,12 +49,14 @@ function App() {
             setImgSRC={setImgSRC}
             setDescripcion={setDescripcion}
             agregarPost={agregarPost}
+            setId={setId}
           />
         </div>
         <div className="col-12 col-sm-8 px-5 row posts align-items-start">
           {posts.map((post, i) => (
             <Post
               key={i}
+              id={id}
               post={post}
               like={like}
               eliminarPost={eliminarPost}

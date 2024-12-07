@@ -70,7 +70,8 @@ app.put("/posts/like/:id", (req, res) => {
         const data = fs.readFileSync("./src/db/posts.json", "utf-8");
         const posts = JSON.parse(data);
         const postIndex =  posts.findIndex((post) => parseInt(post.id) === parseInt(postId));
-        const postLike = posts[postIndex].likes
+        const postLike = posts[postIndex].likes ? posts[postIndex].likes : false
+        // if (postLike === undefined){postLike = false}
         console.log(postLike)
         const post = posts[postIndex]
         // postLike = !postLike
